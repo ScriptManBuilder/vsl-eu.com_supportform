@@ -24,6 +24,7 @@ import {
 
 const Home: React.FC = () => {
   const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -45,6 +46,7 @@ const Home: React.FC = () => {
 
   const sendToTelegram = async (formData: {
     name: string;
+    surname: string;
     email: string;
     subject: string;
     message: string;
@@ -53,6 +55,7 @@ const Home: React.FC = () => {
 🆕 New message from support form!
 
 👤 Name: ${formData.name}
+👤 Surname: ${formData.surname}
 📧 Email: ${formData.email}
 📋 Subject: ${formData.subject}
 💬 Message: ${formData.message}
@@ -90,7 +93,7 @@ const Home: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const result = await sendToTelegram({ name, email, subject, message });
+    const result = await sendToTelegram({ name, surname, email, subject, message });
 
     setIsLoading(false);
 
@@ -103,6 +106,7 @@ const Home: React.FC = () => {
       });
       // Очистка формы
       setName('');
+      setSurname('');
       setEmail('');
       setSubject('');
       setMessage('');
@@ -155,7 +159,7 @@ const Home: React.FC = () => {
         <FormWrapper>
           <SectionTitle>Help & Support</SectionTitle>
           <SectionDescription>
-            We're here to help you. Send us a message and we'll respond as soon as possible.
+            We're here to help you. Send us a message and we'll respond as soon as possible. Please provide as much detail as you can so we can better identify and assist you. Include specific information about your situation or issue.
           </SectionDescription>
 
           <Form onSubmit={handleSubmit}>
@@ -167,6 +171,18 @@ const Home: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="surname">Surname</Label>
+              <Input
+                type="text"
+                id="surname"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                placeholder="Enter your surname"
                 required
               />
             </FormGroup>
